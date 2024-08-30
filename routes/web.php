@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
+use App\Models\Button;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +30,7 @@ Route::resource('settings', SettingsController::class)
 
 Route::get('/dashboard', function () {
     $user = auth()->user();
-    return view('dashboard', ['hyperlink' => $user->hyperlink, 'color' => $user->color]);
+    return view('dashboard', ['buttons' => Button::where('owner_id', $user->id)->get()]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
