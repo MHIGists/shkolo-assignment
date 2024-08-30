@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SettingsController extends Controller
 {
@@ -56,11 +57,24 @@ class SettingsController extends Controller
      */
     public function update(Request $request)
     {
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             'hyperlink' => 'required|string|max:255',
             'color' => 'required|string|max:7',
+        ], [
+            'hyperlink.required' => 'The hyperlink field is required.',
+            'hyperlink.max' => 'The hyperlink may not be greater than 255 characters.',
+            'color.required' => 'The color field is required.',
+            'color.max' => 'The color may not be greater than 7 characters.',
         ]);
 
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $validatedData = $validator->validated();
 
         $user = auth()->user();
 
@@ -71,6 +85,7 @@ class SettingsController extends Controller
 
         return redirect()->route('settings.index')->with('status', 'Settings updated successfully!');
     }
+
 
     /**
      * Remove the specified resource from storage.

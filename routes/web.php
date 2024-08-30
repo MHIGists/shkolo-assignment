@@ -28,7 +28,8 @@ Route::resource('settings', SettingsController::class)
     ]);
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $user = auth()->user();
+    return view('dashboard', ['hyperlink' => $user->hyperlink, 'color' => $user->color]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
