@@ -11,7 +11,12 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        return view('settings.index');
+        $user = auth()->user();
+        $settings = [
+            'hyperlink' => $user->hyperlink,
+            'color' => $user->color,
+        ];
+        return view('settings.index', compact('settings'));
     }
 
     /**
@@ -49,9 +54,22 @@ class SettingsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'hyperlink' => 'required|string|max:255',
+            'color' => 'required|string|max:7',
+        ]);
+
+
+        $user = auth()->user();
+
+        $user->hyperlink = $validatedData['hyperlink'];
+        $user->color = $validatedData['color'];
+
+        $user->save();
+
+        return redirect()->route('settings.index')->with('status', 'Settings updated successfully!');
     }
 
     /**

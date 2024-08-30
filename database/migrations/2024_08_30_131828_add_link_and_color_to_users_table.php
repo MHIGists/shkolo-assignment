@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('hyperlink')->nullable()->after('remember_token');
-            $table->string('favorite_color', 7)->nullable()->after('hyperlink'); // 7 characters to store hex color
+            $table->string('color', 7)->nullable()->after('hyperlink'); // 7 characters to store hex color
         });
     }
 
