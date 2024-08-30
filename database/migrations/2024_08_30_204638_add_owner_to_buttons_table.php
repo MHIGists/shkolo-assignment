@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('hyperlink')->nullable()->after('remember_token');
-            $table->string('color', 7)->nullable()->after('hyperlink'); // 7 characters to store hex color
+        Schema::table('buttons', function (Blueprint $table) {
+            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
         });
     }
 
@@ -22,8 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['hyperlink', 'favorite_color']);
+        Schema::table('buttons', function (Blueprint $table) {
+            $table->dropForeign(['owner_id']);
+            $table->dropColumn('owner_id');
         });
     }
 };
