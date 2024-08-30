@@ -15,7 +15,6 @@
 
     <!-- Reset and Submit buttons -->
     <div class="flex items-center justify-end mt-4">
-{{--        TODO add onClick event  to fill fields with some default data--}}
         <button id="reset-button" type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md mr-2">Reset</button>
         <button type="submit" class="bg-green text-white px-4 py-2 rounded-md">Update Settings</button>
     </div>
