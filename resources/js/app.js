@@ -30,8 +30,10 @@ window.onPageLoad = function (document){
         buttons.forEach(button => {
             button.addEventListener('click', function () {
                 if (button.href === '#' || button.href === 'https://#') {
+                    //Get the actual db id of the button
+                    var buttonId = button.id.split('-')[1];
                     // Change the location to the settings page if href is not set
-                    window.location = window.location.origin + '/settings';
+                    window.location = window.location.origin + '/settings/' + buttonId;
                 }
             });
         });

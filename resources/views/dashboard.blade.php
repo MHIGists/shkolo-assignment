@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="grid gap-6 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 ">
                         @foreach($buttons as $button)
-                            <a href="{{ $button->hyperlink }}"
+                            <a id="button-{{$button->id}}" href="{{ $button->hyperlink }}"
                                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center colored-button"
                                style="background-color: {{ $button->color }};">
                                 {{ $button->title }}

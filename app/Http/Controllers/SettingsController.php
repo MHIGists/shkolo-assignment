@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Button;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -10,14 +11,9 @@ class SettingsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $id)
     {
-        $user = auth()->user();
-        $settings = [
-            'hyperlink' => $user->hyperlink,
-            'color' => $user->color,
-        ];
-        return view('settings.index', compact('settings'));
+
     }
 
     /**
@@ -41,7 +37,13 @@ class SettingsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $button = Button::where('id', $id)->select('title', 'color', 'hyperlink')->first();
+        $settings = [
+            'title' => $button->title,
+            'hyperlink' => $button->hyperlink,
+            'color' => $button->color,
+        ];
+        return view('settings.index', compact('settings'));
     }
 
     /**
@@ -55,35 +57,38 @@ class SettingsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
             'hyperlink' => 'required|string|max:255',
             'color' => 'required|string|max:7',
         ], [
+            'title.required' => 'The title field is required.',
+            'title.max' => 'The title may not be greater than 255 characters.',
             'hyperlink.required' => 'The hyperlink field is required.',
             'hyperlink.max' => 'The hyperlink may not be greater than 255 characters.',
             'color.required' => 'The color field is required.',
             'color.max' => 'The color may not be greater than 7 characters.',
         ]);
-
-
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-
         $validatedData = $validator->validated();
 
-        $user = auth()->user();
+        // Find the specific button by ID
+        $button = Button::findOrFail($id);
 
-        $user->hyperlink = $validatedData['hyperlink'];
-        $user->color = $validatedData['color'];
+        // Update the button with the validated data
+        $button->update([
+            'title' => $validatedData['title'],
+            'hyperlink' => $validatedData['hyperlink'],
+            'color' => $validatedData['color'],
+        ]);
 
-        $user->save();
-
-        return redirect()->route('settings.index')->with('status', 'Settings updated successfully!');
+        return redirect()->route('dashboard')->with('status', 'Settings updated successfully!');
     }
 
 
