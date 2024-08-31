@@ -28,7 +28,11 @@
                 <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md">Add Button</button>
                 @else
             <button id="reset-button-{{ $button['id'] }}" type="submit" class="reset-btn bg-red-500 text-white px-4 py-2 rounded-md mr-2">Reset</button>
-            <button id="delete-button-{{ $button['id'] }}" type="button" class="delete-btn dark:bg-red-700 text-white px-4 py-2 rounded-md mr-2">Delete</button>
+            <form method="POST" action="{{route('settings.destroy', $button['id'])}}">
+                @csrf
+                @method('DELETE')
+                <button id="delete-button-{{ $button['id'] }}" type="submit" class="delete-btn dark:bg-red-700 text-white px-4 py-2 rounded-md mr-2">Delete</button>
+            </form>
             <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md">Update Button</button>
             @endif
         </div>

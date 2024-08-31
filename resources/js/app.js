@@ -23,15 +23,5 @@ window.onPageLoad = function (document){
             });
         })
     }
-
-    let deleteButtons = document.querySelectorAll('.delete-btn');
-    if (deleteButtons.length > 0){
-        deleteButtons.forEach(deleteButton => {
-            deleteButton.addEventListener('click', function (){
-               let buttonId = deleteButton.id.split('-')[2];
-               window.location.href += ('/destroy?' + buttonId);
-            });
-        })
-    }
 }
 

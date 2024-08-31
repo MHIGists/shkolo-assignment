@@ -153,5 +153,6 @@ class SettingsController extends Controller
         }else{
             return redirect()->back()->with('error', 'Error deleting button!');
         }
+        return redirect(route('dashboard'))->with('status'. 'Button deleted!');
     }
 }
