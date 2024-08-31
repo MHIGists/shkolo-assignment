@@ -20,12 +20,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('settings', SettingsController::class)
-    ->only(['index', 'show', 'update'])
+    ->only(['index', 'show', 'update', 'create', 'store' , 'destroy'])
     ->middleware(['auth', 'verified'])
     ->names([
         'index' => 'settings.index',
         'show' => 'settings.show',
         'update' => 'settings.update',
+        'create' => 'settings.create',
+        'store' => 'settings.store',
+        'destroy' => 'settings.destroy',
     ]);
 
 Route::get('/dashboard', function () {

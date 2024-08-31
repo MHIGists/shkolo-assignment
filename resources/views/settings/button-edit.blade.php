@@ -19,24 +19,16 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <h1 class="text-2xl font-semibold mb-6 text-white">Buttons Settings</h1>
-                        <div
-                            class="grid gap-6 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 ">
-                            @foreach($buttons as $button)
-                                <x-settings-form :button="$button"/>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-end mt-4 mb-6 mr-6">
-                        <a href="{{route('settings.create')}}" class="button bg-green-600 text-white px-4 py-2 rounded-md">Add new button</a>
+                        <h1 class="text-2xl font-semibold mb-6 text-white">Button Settings</h1>
+                            <x-settings-form :button="$button"/>
                     </div>
                 </div>
             </div>
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                onPageLoad(document);
-            });
-        </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    onPageLoad(document);
+                });
+            </script>
     </x-slot>
 </x-app-layout>

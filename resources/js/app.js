@@ -7,46 +7,31 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
-window.editButtons = function(document ,hexColor, newHref) {
-    var buttons = document.querySelectorAll('.colored-button');
-
-    buttons.forEach(button => {
-        // Set the background color
-        button.style.backgroundColor = hexColor;
-
-        // Check if newHref is an absolute URL or a relative URL
-        if (newHref.startsWith('http://') || newHref.startsWith('https://')) {
-            button.href = newHref;
-        } else {
-            //If relative prepend https
-            button.href = 'https://' + newHref;
-        }
-    });
-};
-
 window.onPageLoad = function (document){
-    var buttons = document.querySelectorAll('.colored-button');
-    if (buttons.length > 0){
-        buttons.forEach(button => {
-            button.addEventListener('click', function () {
-                if (button.href === '#' || button.href === 'https://#') {
-                    //Get the actual db id of the button
-                    var buttonId = button.id.split('-')[1];
-                    // Change the location to the settings page if href is not set
-                    window.location = window.location.origin + '/settings/' + buttonId;
-                }
-            });
-        });
-    }
-    var resetButton = document.querySelector('#reset-button');
-    if (resetButton !== null) {
-        resetButton.addEventListener('click', function () {
-            var color = document.querySelector('#color');
-            var hyperlink = document.querySelector('#hyperlink');
+    let resetButtons = document.querySelectorAll('.reset-btn');
+    if (resetButtons.length > 0) {
+        resetButtons.forEach(resetButton => {
+            resetButton.addEventListener('click', function () {
+                let buttonId = resetButton.id.split('-')[2];
+                let title = document.querySelector('#title-' + buttonId);
+                let color = document.querySelector('#color-' + buttonId);
+                let hyperlink = document.querySelector('#hyperlink-' + buttonId);
 
-            color.setAttribute('value', '#111111');
-            hyperlink.setAttribute('value', '#');
-        });
+                title.setAttribute('value', 'Default button');
+                color.setAttribute('value', '#111111');
+                hyperlink.setAttribute('value', '#');
+            });
+        })
+    }
+
+    let deleteButtons = document.querySelectorAll('.delete-btn');
+    if (deleteButtons.length > 0){
+        deleteButtons.forEach(deleteButton => {
+            deleteButton.addEventListener('click', function (){
+               let buttonId = deleteButton.id.split('-')[2];
+               window.location.href += ('/destroy?' + buttonId);
+            });
+        })
     }
 }
 
