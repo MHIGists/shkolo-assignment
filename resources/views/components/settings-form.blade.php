@@ -3,7 +3,7 @@
           action="{{ route(request()->routeIs('settings.create') ? 'settings.store' : 'settings.update', $button['id'] ?? null) }}"
           class="border-black border-4 rounded mt-6 p-4">
         @csrf
-        @if(request()->routeIs('settings.update') || request()->routeIs('settings.index'))
+        @if(request()->routeIs('settings.update') || request()->routeIs('settings.index') || request()->routeIs('settings.show'))
             @method('PUT')
         @endif
         <div class="mb-4">
