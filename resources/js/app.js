@@ -19,7 +19,7 @@ window.onPageLoad = function (document){
 
                 title.setAttribute('value', 'Default button');
                 color.setAttribute('value', '#111111');
-                hyperlink.setAttribute('value', '#');
+                hyperlink.setAttribute('value', 'https://google.com');
             });
         })
     }
